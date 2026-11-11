@@ -1,6 +1,6 @@
 import json
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 
 class TelemetryLogger:
     def __init__(self, robot_id: str = "ROVER-EON-01"):
@@ -14,7 +14,7 @@ class TelemetryLogger:
         obstacle_distance = round(random.uniform(1.5, 10.0), 2)
 
         telemetry_data = {
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             "robot_id": self.robot_id,
             "pose": {"x": x, "y": y, "heading": theta},
             "sensors": {
